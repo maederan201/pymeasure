@@ -53,7 +53,7 @@ class TestProcedure(Procedure):
             else:
                 data = {
                     'Iteration': i,
-                    'Random Number': 3.14e38
+                    'Random Number': 1e-2
                 }
 
 

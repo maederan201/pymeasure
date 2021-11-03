@@ -111,6 +111,7 @@ class PlotFrame(QtGui.QFrame):
                         item.update_data()
                 else:
                     item.update_data()
+        
 
     def parse_axis(self, axis):
         """ Returns the units of an axis by searching the string
