@@ -76,7 +76,7 @@ class ResultsCurve(pg.PlotDataItem):
                 top=data[self.yerr],
                 bottom=data[self.yerr],
                 left=data[self.xerr],
-                right=data[self.yerr],
+                right=data[self.xerr],
                 beam=max(data[self.xerr], data[self.yerr])
             )
 
