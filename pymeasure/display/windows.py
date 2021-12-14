@@ -71,7 +71,7 @@ class PlotterWindow(QtGui.QMainWindow):
     .. pyqtgraph.PlotItem: http://www.pyqtgraph.org/documentation/graphicsItems/plotitem.html
 
     """
-    def __init__(self, plotter, refresh_time=0.1, linewidth=1, parent=None):
+    def __init__(self, plotter, refresh_time=0.1, linewidth=1, parent=None,xerr=None,yerr=None):
         super().__init__(parent)
         self.plotter = plotter
         self.refresh_time = refresh_time
@@ -109,16 +109,16 @@ class PlotterWindow(QtGui.QMainWindow):
         self.resize(800, 600)
 
         self.curve = ResultsCurve(plotter.results, columns[0], columns[1],
-                                  pen=pg.mkPen(color=pg.intColor(0), width=linewidth), antialias=False)
+                                  pen=pg.mkPen(color=pg.intColor(0), width=linewidth), antialias=False,xerr=xerr,yerr=yerr)
         self.plot.addItem(self.curve)
+        if hasattr(self.curve, '_errorBars'):
+            self.plot.addItem(self.curve._errorBars)
 
         self.plot_widget.updated.connect(self.check_stop)
 
     def quit(self, evt=None):
         log.info("Quitting the Plotter")
         self.close()
-        self.plotter.stop()
-
     def check_stop(self):
         """ Checks if the Plotter should stop and exits the Qt main loop if so
         """

@@ -56,7 +56,7 @@ class ResultsCurve(pg.PlotDataItem):
         self.x, self.y = x, y
         self.force_reload = force_reload
         if xerr or yerr:
-            self._errorBars = pg.ErrorBarItem(pen=kwargs.get('pen', None))
+            self._errorBars = pg.ErrorBarItem(pen=pg.mkPen(color=pg.intColor(0), width=1))
             self.xerr, self.yerr = xerr, yerr
 
     def update_data(self):
@@ -77,7 +77,7 @@ class ResultsCurve(pg.PlotDataItem):
                 bottom=data[self.yerr],
                 left=data[self.xerr],
                 right=data[self.xerr],
-                beam=max(data[self.xerr], data[self.yerr])
+                beam=0.5#*np.ones_like(data[self.yerr])
             )
 
 

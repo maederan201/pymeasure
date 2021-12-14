@@ -45,15 +45,21 @@ class Plotter(StoppableThread):
             A tutorial and example on using the Plotter and PlotterWindow.
     """
 
-    def __init__(self, results, refresh_time=0.1, linewidth=1):
+    def __init__(self, results, refresh_time=0.1, linewidth=1,**kwargs):
         super(Plotter, self).__init__()
         self.results = results
         self.refresh_time = refresh_time
         self.linewidth = linewidth
+        self.xerr = None
+        self.yerr = None
+        if 'xerr' in kwargs:
+            self.xerr = kwargs['xerr']
+        if 'yerr' in kwargs:
+            self.yerr = kwargs['yerr']
 
     def run(self):
         app = QtGui.QApplication(sys.argv)
-        window = PlotterWindow(self, refresh_time=self.refresh_time, linewidth=self.linewidth)
+        window = PlotterWindow(self, refresh_time=self.refresh_time, linewidth=self.linewidth,xerr=self.xerr,yerr=self.yerr)
         self.setup_plot(window.plot)
         app.aboutToQuit.connect(window.quit)
         window.show()
